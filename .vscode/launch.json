@@ -1,0 +1,12 @@
+{
+  "version": "0.4.0",
+  "configurations": [
+    {
+      "name": "DEV - App",
+      "type": "dart",
+      "request": "launch",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
+    },
+  ]
+}
