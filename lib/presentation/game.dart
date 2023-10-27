@@ -21,7 +21,10 @@ class MainGame extends FlameGame with KeyboardEvents {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    final character = CharacterComponent(direction: directionController, balance: balanceController);
+    final character = CharacterComponent(
+      directionController: directionController,
+      balance: balanceController,
+    );
 
     add(character);
   }

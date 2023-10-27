@@ -19,7 +19,7 @@ class App extends StatelessWidget {
     final balanceController = BalanceController(dificulty: GameDificulty.hard);
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       home: Scaffold(
         body: GameWidget(
           game: MainGame(
