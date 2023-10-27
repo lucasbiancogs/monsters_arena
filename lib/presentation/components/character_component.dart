@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
+import 'package:monsters_arena/domain/controllers/balance_controller.dart';
 import 'package:monsters_arena/domain/controllers/direction_controller.dart';
 import 'package:monsters_arena/presentation/constants/dimensions.dart';
 import 'package:monsters_arena/presentation/constants/durations.dart';
@@ -9,10 +10,11 @@ import 'package:monsters_arena/presentation/game.dart';
 class CharacterComponent extends SpriteAnimationComponent with HasGameRef<MainGame> {
   CharacterComponent({
     required this.direction,
+    required this.balance,
   });
 
   final KeyboardDirectionController direction;
-  final double playerSpeed = 100;
+  final BalanceController balance;
 
   @override
   Future<void> onLoad() async {
@@ -44,7 +46,7 @@ class CharacterComponent extends SpriteAnimationComponent with HasGameRef<MainGa
 
   /// Moves the player at every frame fot given the [direction].
   void movePlayer(double dt) {
-    x = x + (playerSpeed * direction.horizontalDirectionFactor * dt);
-    y = y - (playerSpeed * direction.verticalDirectionFactor * dt);
+    x = x + (balance.playerSpeed * direction.horizontalDirectionFactor * dt);
+    y = y - (balance.playerSpeed * direction.verticalDirectionFactor * dt);
   }
 }
