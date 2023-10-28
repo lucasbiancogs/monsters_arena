@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:monsters_arena/domain/controllers/balance_controller.dart';
 import 'package:monsters_arena/domain/controllers/input_controller.dart';
 import 'package:monsters_arena/domain/controllers/direction_controller.dart';
+import 'package:monsters_arena/presentation/components/asset_manager.dart';
 import 'package:monsters_arena/presentation/components/character_component.dart';
 
 class MainGame extends FlameGame with KeyboardEvents {
@@ -17,13 +18,20 @@ class MainGame extends FlameGame with KeyboardEvents {
   final KeyboardInputController inputController;
   final KeyboardDirectionController directionController;
   final BalanceController balanceController;
+  late final AssetManager assetManager;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+
+    assetManager = AssetManager(this);
+
+    await assetManager.loadSprites();
+
     final character = CharacterComponent(
       directionController: directionController,
       balance: balanceController,
+      asset: assetManager.character,
     );
 
     add(character);
