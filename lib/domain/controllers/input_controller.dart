@@ -7,7 +7,7 @@ abstract class InputController {
   KeyEventResult noKeyHandle();
 
   /// Handles the inputed [key].
-  KeyEventResult handleKey(LogicalKeyboardKey key);
+  KeyEventResult handleKeys(Set<LogicalKeyboardKey> keys);
 }
 
 class KeyboardInputController implements InputController {
@@ -23,12 +23,18 @@ class KeyboardInputController implements InputController {
   }
 
   @override
-  KeyEventResult handleKey(LogicalKeyboardKey key) {
-    if (!_keysFunctionsMap.containsKey(key)) {
+  KeyEventResult handleKeys(Set<LogicalKeyboardKey> keys) {
+    final hasKeyMapped = keys.union(_keysFunctionsMap.keys.toSet()).isNotEmpty;
+
+    if (!hasKeyMapped) {
       return KeyEventResult.ignored;
     }
 
-    _keysFunctionsMap[key]!.call();
+    directionController.onNewMovement();
+
+    for (LogicalKeyboardKey key in keys) {
+      _keysFunctionsMap[key]!.call();
+    }
 
     return KeyEventResult.handled;
   }

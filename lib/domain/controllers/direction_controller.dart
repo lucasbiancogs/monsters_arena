@@ -17,38 +17,45 @@ abstract class DirectionController {
 }
 
 class KeyboardDirectionController extends DirectionController {
-  KeyboardDirectionController({double speedFactor = 0, double direction = 0})
-      : _speedFactor = speedFactor,
-        _direction = direction;
+  KeyboardDirectionController()
+      : _speedFactor = 0,
+        _xAxisFactor = 0,
+        _yAxisFactor = 0;
 
   @override
   double get speedFactor => _speedFactor;
 
   @override
-  double get direction => _direction;
+  double get direction => atan2(_yAxisFactor, _xAxisFactor);
 
   double _speedFactor;
 
-  double _direction;
+  double _xAxisFactor;
+  double _yAxisFactor;
 
   void moveRight() {
-    _direction = 0;
+    _xAxisFactor = max(_xAxisFactor + 1, 1);
     _speedFactor = 1;
   }
 
   void moveLeft() {
-    _direction = pi;
+    _xAxisFactor = max(_xAxisFactor - 1, -1);
     _speedFactor = 1;
   }
 
   void moveUp() {
-    _direction = pi / 2;
+    _yAxisFactor = max(_yAxisFactor + 1, 1);
     _speedFactor = 1;
   }
 
   void moveDown() {
-    _direction = 3 * pi / 2;
+    _yAxisFactor = max(_yAxisFactor - 1, -1);
     _speedFactor = 1;
+  }
+
+  void onNewMovement() {
+    _xAxisFactor = 0;
+    _yAxisFactor = 0;
   }
 
   void stop() {

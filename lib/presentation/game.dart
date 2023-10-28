@@ -48,7 +48,6 @@ class MainGame extends FlameGame with KeyboardEvents {
       return inputController.noKeyHandle();
     }
 
-    final lastKeyPressed = keysPressed.last;
-    return inputController.handleKey(lastKeyPressed);
+    return inputController.handleKeys(keysPressed);
   }
 }
